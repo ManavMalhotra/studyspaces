@@ -5,8 +5,10 @@
 <h1>Home Template</h1>
 
 <div>
+    <a href="/create-room">Create Room</a>
     {% for room in rooms %}
         <div> 
+            <span> @{{ room.host }} </span>
             <h2> {{ room.id }} -- <a href="room/{{ room.id }}" >  {{ room.name }}  </a> </h2>
         </div>
     {% endfor %}

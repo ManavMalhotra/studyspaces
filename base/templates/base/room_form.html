@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Room Name">
+        <input type="text" name="host" placeholder="Host Name">
+        <input type="submit" value="Create Room">
+    </form>
+</div>
+
+{% endblock content %}
