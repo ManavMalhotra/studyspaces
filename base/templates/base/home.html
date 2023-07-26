@@ -6,11 +6,15 @@
 
 <div>
     <a href="/create-room">Create Room</a>
+    
     {% for room in rooms %}
         <div> 
             <span> @{{ room.host }} </span>
             <h2> {{ room.id }} -- <a href="room/{{ room.id }}" >  {{ room.name }}  </a> </h2>
+            <a href="{% url 'update-room' room.id %}" > Edit </a> 
+            <a href="{% url 'delete-room' room.id %}" > Delete Room </a> 
         </div>
+
     {% endfor %}
 </div>
 
