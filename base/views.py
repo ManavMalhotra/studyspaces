@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 # room_list = [
@@ -10,9 +10,11 @@ from .forms import RoomForm
 
 
 def home(request):
-    room_list = Room.objects.all()
-    context = room_list
-    return render(request, 'base/home.html', {'rooms': context})
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    room_list = Room.objects.filter(topic__name__contains=q)
+    topic = Topic.objects.all()
+    context = {'rooms': room_list, 'topics': topic}
+    return render(request, 'base/home.html', context)
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
@@ -49,7 +51,7 @@ def updateRoom(request, pk):
 
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)   
-    
+
     if request.method == 'POST':
         room.delete()
         return redirect('/')

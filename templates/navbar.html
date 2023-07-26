@@ -1,3 +1,8 @@
 <a>
     <h1>Logo</h1>
 </a>
+
+<form method = 'GET' action = "{% url 'home' %}">
+    <input type = 'text' name = 'q' placeholder = 'Search...'>
+    <input type = 'submit' value = 'Search'>
+</form>
