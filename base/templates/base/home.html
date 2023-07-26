@@ -23,6 +23,7 @@
     <h1>Rooms</h1>
     <a href="/create-room">Create Room</a>
 
+    <h3>Total rooms found: {{ room_count }}</h3>
     {% for room in rooms %}
     <div>
       <span> @{{ room.host }} </span>

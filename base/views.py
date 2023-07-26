@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -11,9 +12,10 @@ from .forms import RoomForm
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    room_list = Room.objects.filter(topic__name__contains=q)
+    room_list = Room.objects.filter(Q(topic__name__contains=q) )
     topic = Topic.objects.all()
-    context = {'rooms': room_list, 'topics': topic}
+    room_count = room_list.count()
+    context = {'rooms': room_list, 'topics': topic, 'room_count': room_count}
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
