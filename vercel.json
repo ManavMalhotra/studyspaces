@@ -2,7 +2,8 @@
     "builds": [
       {
         "src": "studybud/wsgi.py",
-        "use": "@vercel/python"
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "nuntime": "python3.9" }
       }
     ],
     "routes": [
