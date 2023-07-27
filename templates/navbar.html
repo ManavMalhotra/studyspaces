@@ -1,17 +1,96 @@
-<a>
-    <h1>Logo</h1>
-</a>
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 1rem;
+    background-color: #b6131376;
+  }
 
-<p>Hey {{request.user}}</p>
+  /* .navbar-brand-logo {
+    margin: 0;
+  }
 
-<form method = 'GET' action = "{% url 'home' %}">
-    <input type = 'text' name = 'q' placeholder = 'Search...'>
-    <input type = 'submit' value = 'Search'>
-</form>
+  .navbar-search {
+    margin: 0;
+    padding: 0;
+  } */
 
-{% if user.is_authenticated %}
-    <a href = "{% url 'logout' %}">Logout</a>
-{% else %}
-    <a href = "{% url 'login' %}">Login</a>
-    <a href = "{% url 'register' %}">Sign up</a>
-{% endif %}
+  .navbar-search > form {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .search {
+    font-size: 1rem;
+    width: 100%;
+    height: 34px;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* .search:focus {
+    width: 200px;
+  } */
+
+  .btn-search {
+    font-size: 1rem;
+    background-color: #ccc;
+    color: #fff;
+    height: 34px;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+  }
+
+  .btn-search:hover {
+    background-color: #bbb;
+  }
+
+  .navbar-items {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .navbar-items a {
+    color: #000;
+  }
+
+  .navbar-items a:hover {
+    color: #fff;
+  }
+</style>
+
+<nav>
+  <div class="navbar-brand-logo">
+    <a href="/">
+      <h1>Logo</h1>
+    </a>
+  </div>
+
+  <div class="navbar-search">
+    <form method="GET" action="{% url 'home' %}">
+      <input class="search" type="text" name="q" placeholder="Search..." />
+      <input class="btn-search" type="submit" value="Search" />
+    </form>
+  </div>
+
+  <div class="navbar-items">
+    <a href="{% url 'home' %}">Home</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'create-room' %}">Create Room</a>
+    <p>Hey {{request.user}}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Sign up</a>
+    {% endif %}
+  </div>
+</nav>

@@ -4,14 +4,48 @@
   .home-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    grid-gap: 4rem;
+    grid-gap: 1rem;
+  }
+
+  .home-container > div {
+    background-color: #fafafa;
+    padding: 1rem 2rem;
+    border-radius: 0.25rem;
+    margin: 0.5rem;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1), 0px 8px 16px 0px rgba(0, 0, 0, 0.06);
+  }
+
+  .room-card {
+    color: var(--light-foreground-foreground-1, #242424);
+    /* Web/Body 1 Strong */
+    font-family: Segoe UI;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.25rem; /* 142.857% */
+    padding: 1rem 2rem 2rem 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12), 0px 8px 16px 0px rgba(0, 0, 0, 0.14);
+    border-radius: 0.25rem;
+  }
+
+  .room-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .room-card-controls{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 </style>
 
 <div class="home-container">
   <div class="topic-container">
     <h1>Topic</h1>
-    <a href="{% url 'home' %}" ><h2>All</h2></a>
+    <a href="{% url 'home' %}"><h2>All</h2></a>
     {% for topic in topics %}
     <a href="{% url 'home' %}?q={{topic.name}}">
       <h2>{{ topic.name }}</h2>
@@ -24,16 +58,18 @@
     <a href="/create-room">Create Room</a>
 
     <h3>Total rooms found: {{ room_count }}</h3>
-    {% for room in rooms %}
-    <div>
 
-      <span> @{{ room.host }} </span>
-      <h2>
-        {{ room.id }} -- <a href="room/{{ room.id }}"> {{ room.name }} </a>
-      </h2>
+    {% for room in rooms %}
+    <div class="room-card">
+      <div class="room-card-header">
+        <h2><a href="room/{{ room.id }}"> {{ room.name }} </a></h2>
+        <span> @{{ room.host }} </span>
+      </div>
       {% if request.user == room.host %}
-      <a href="{% url 'update-room' room.id %}"> Edit </a>
-      <a href="{% url 'delete-room' room.id %}"> Delete Room </a>
+      <div class="room-card-controls">
+        <a href="{% url 'update-room' room.id %}"> Edit </a>
+        <a href="{% url 'delete-room' room.id %}"> Delete </a>
+      </div>
 
       {% endif %}
     </div>
